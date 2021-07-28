@@ -112,9 +112,9 @@ export default function Menu() {
             <Link to="/messages">Mensagens</Link>
             <Link to="/#">Sair</Link>
           </nav>
-          <nav>
+          {/*<nav>
             <input type="text" placeholder="Pesquisar" />
-          </nav>
+          </nav>*/}
         </MainMenu.Links>
       </div>
     </MainMenu>
