@@ -39,6 +39,7 @@ const Box = styled.div`
   }
   input, textarea {
     max-width: 100%;
+    font-family: sans-serif;
     width: 100%;
     background-color: #F4F4F4;
     color: #333333;
