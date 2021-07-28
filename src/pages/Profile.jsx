@@ -127,7 +127,7 @@ export default function Profile({ title = "ProfileBook" }) {
                         }}
                         style={
                           post.liked
-                            ? { backgroundColor: "green" }
+                            ? { backgroundColor: "#7fff00" }
                             : { backgroundColor: "grey" }
                         }
                       >
