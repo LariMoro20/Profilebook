@@ -30,12 +30,12 @@ export default function Profile({ title = "ProfileBook" }) {
 
   function handlePostDelete(id) {
     console.log(posts);
-    const newPosts = posts.filter((post) => post.userId !== id);
+    const newPosts = posts.filter((post) => post.postid !== id);
     setPosts(newPosts);
   }
   function handlePostLike(id) {
     const newPosts = posts.map((post) => {
-      if (post.userId === id) return { ...post, liked: !post.liked };
+      if (post.postid === id) return { ...post, liked: !post.liked };
       return post;
     });
     setPosts(newPosts);
@@ -48,6 +48,27 @@ export default function Profile({ title = "ProfileBook" }) {
       })
       .then((respComplete) => {
         setProfile(respComplete);
+      });
+
+    const token = "16627dbcdd1ab3219798f6709a9c6a";
+    fetch("https://graphql.datocms.com/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        query:
+          "{ allPosts { id title content userName userImage tagUrl liked postid } }",
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setPosts(res.data.allPosts);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
 
@@ -73,7 +94,8 @@ export default function Profile({ title = "ProfileBook" }) {
                   userName: profile.login,
                   userImage: profile.avatar_url,
                   imageUrl: profile.avatar_url,
-                  userId: new Date().toISOString(),
+                  userId: "",
+                  postid: new Date().toISOString(),
                   liked: false,
                   content: dadosform.get("content"),
                   title: dadosform.get("title"),
@@ -94,7 +116,7 @@ export default function Profile({ title = "ProfileBook" }) {
           </Box>
           {posts.map((post) => {
             return (
-              <Box key={post.userId}>
+              <Box key={post.postid}>
                 <div className="post">
                   <div className="post-header flex justify-between">
                     <div className="flex">
@@ -112,7 +134,7 @@ export default function Profile({ title = "ProfileBook" }) {
                       <button
                         onClick={(e) => {
                           e.preventDefault();
-                          handlePostDelete(post.userId);
+                          handlePostDelete(post.postid);
                         }}
                         style={{ backgroundColor: "red" }}
                       >
@@ -123,7 +145,7 @@ export default function Profile({ title = "ProfileBook" }) {
                       <button
                         onClick={(e) => {
                           e.preventDefault();
-                          handlePostLike(post.userId);
+                          handlePostLike(post.postid);
                         }}
                         style={
                           post.liked
