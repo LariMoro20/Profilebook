@@ -1,0 +1,30 @@
+.menu {
+    background-color: #7fff00;
+    padding: 5px;
+}
+
+.menu-logo {
+    display: flex;
+    align-items: center;
+}
+
+.menu-logo-img {
+    background-color: #ffffff;
+    padding: 2px;
+    border-radius: 1000px;
+    height: 50px;
+}
+
+.menu-links {
+    display: flex;
+    justify-content: center;
+}
+
+.menu-links a {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    margin: 5px;
+}

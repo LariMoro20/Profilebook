@@ -1,12 +1,11 @@
 import Box from "../components/Box";
 import React from "react";
 import ProfileRelations from "../components/ProfileRelations";
-import MainGrid from "../components/MainGrid";
 
-export default function FollowingPage(props) {
+export default function FollowingPage({ user }) {
   const [following, setFollowing] = React.useState([]);
   React.useEffect(() => {
-    fetch("https://api.github.com/users/LariMoro20/following")
+    fetch("https://api.github.com/users/" + user.username + "/following")
       .then((res) => {
         return res.json();
       })
@@ -15,10 +14,10 @@ export default function FollowingPage(props) {
       });
   }, []);
   return (
-    <MainGrid>
+    <div className='container'>
       <Box className="folloingArea">
         <ProfileRelations items={following} title="Você está seguindo" />
       </Box>
-    </MainGrid>
+    </div>
   );
 }
